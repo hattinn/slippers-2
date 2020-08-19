@@ -25,7 +25,9 @@
     </div>
 
     <div class="wrapper">
-        <a href="https://www.instagram.com/slipperssun/" class="btn instagram">instagram</a>
+        <a href="https://www.instagram.com/slipperssun/" class="btn instagram">instagram（総合）</a>
+
+        <a href="https://www.instagram.com/omoro_ya/" class="btn instagram">instagram（漫画専用）</a>
 
         <a href="https://store.line.me/stickershop/product/12745829/?ref=Desktop" class="btn line">LINEスタンプ</a>
 
@@ -40,6 +42,122 @@
         <a href="https://twitter.com/happy16575851/status/1238085695605858304?s=09" class="btn twitter">twitter</a>
     </div>
 
+    <!-- 税込み計算エリア -->
+    <aside id="tax_area">
+      <div class="wrapper">
+        <div class="title-wrap">
+          <h2>主婦の味方</h2>
+          <h3　tax_title>" 税込み計算機 "</h2>
+          
+        </div>
+
+        <form action="" id="form">
+
+          <p class="red">税率10％の計算</p>
+          <p id="answer_10"></p>
+          <div class="area_10">
+            <input id="form_10" type="text" name="word_10" required placeholder="価格を入れてね">
+            <input type="submit" value="小計">
+            <input type="button" value="リセット" onclick="clearText10()">
+          </div>
+        </form>
+
+        <form action="" id="form2">
+
+          <p class="blue">税率8％の計算</p>
+          <p id="answer_8"></p>
+          <div class="area_8">
+            <input id="form_8" type="text" name="word_8"
+            required placeholder="価格を入れてね">
+            <input type="submit" value="小計">
+            <input type="button" value="リセット" onclick="clearText8()">
+          </div>
+        </form>
+
+      </div><!-- /wrapper -->
+    </aside>
+<script>
+'use strict';
+
+//税込み計算（10％）
+function total_10(price){
+  const tax = 0.1;
+  return  Math.floor(price + price * tax);/* 小数点以下切り捨て */
+}
+
+document.getElementById('form').onsubmit = function(event)
+{
+  event.preventDefault();
+
+  // 受け取った入力を"数値化して"変数へ代入
+  let price = parseInt(document.getElementById('form').word_10.value);
+
+
+  // 計算functionを呼び出し⇒HTML書きかえ出力
+   document.getElementById('answer_10').textContent 
+  = `税込み【${total_10(price).toLocaleString()}】円。${osekkai(price)}`; 
+  
+}
+
+// リセットボタン(10%)
+  function clearText10() {
+    var textForm = document.getElementById("form_10");
+    textForm.value = '';
+  }
+
+
+
+//税込み計算（8％）
+function total_8(price) {
+
+  const tax = 0.08;
+  return Math.floor(price + price * tax);/* 小数点以下切り捨て */
+}
+
+  document.getElementById('form2').onsubmit = function (event) {
+    event.preventDefault();
+
+    // 受け取った入力を"数値化して"変数へ代入
+    let price = parseInt(document.getElementById('form2').word_8.value);
+
+    // 計算functionを呼び出し⇒HTML書きかえ出力
+    document.getElementById('answer_8').textContent
+      = `税込み【${total_8(price).toLocaleString()}】円。${osekkai(price)}`;
+
+  }
+
+  // リセットボタン(8%)
+  function clearText8() {
+    var textForm = document.getElementById("form_8");
+    textForm.value = '';
+  }
+
+
+// おせっかいコメント機能
+function osekkai (price){
+
+  if(price >= 100000){
+    return '大金！'
+  }else if (price >= 50000){
+    return 'なかなかの出費'
+  }else if(price >= 10000){
+    return '諭吉が飛んでいく！'
+  }else if (price >= 5000){
+    return '立派な買い物です'
+  }else if (price >= 1000){
+    return '千円単位で税計算、賢いお人♪'
+  }else{
+    return '小銭まで税計算とは、私も見習いたいものです'
+  }
+
+}
+
+
+
+//テスト
+// console.log(total_8(1000));
+
+</script>
 </body>
 
 </html>
